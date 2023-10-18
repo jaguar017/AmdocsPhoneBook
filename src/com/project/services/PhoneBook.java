@@ -1,12 +1,16 @@
-package com.amdocs.project;
+package com.project.services;
+
 import java.util.TreeMap;
 
-public class PhoneBook extends AbstractPhoneBook {
+import com.project.model.Contact;
+
+public class PhoneBook {
     private TreeMap<String, Contact> contactMap = new TreeMap<>();
 
-    @Override
+    
     public void addContact(Contact contact) {
-        if (isContactValid(contact)) {
+    	ValidatePhoneBook vb1 = new ValidatePhoneBook();
+        if (vb1.isValidContactData(contact.getName(),contact.getPhoneNumber())) {
             contactMap.put(contact.getName(), contact);
             System.out.println("Contact added: " + contact.getName() + " - " + contact.getPhoneNumber());
         } else {
@@ -14,7 +18,7 @@ public class PhoneBook extends AbstractPhoneBook {
         }
     }
 
-    @Override
+    
     public void removeContact(String name) {
         if (contactMap.containsKey(name)) {
             Contact removedContact = contactMap.remove(name);
@@ -24,12 +28,12 @@ public class PhoneBook extends AbstractPhoneBook {
         }
     }
 
-    @Override
+   
     public Contact searchContact(String name) {
         return contactMap.get(name);
     }
 
-    @Override
+    
     public void listContacts() {
         System.out.println("PhoneBook Contacts (Sorted by Name):");
         for (Contact contact : contactMap.values()) {
@@ -37,12 +41,14 @@ public class PhoneBook extends AbstractPhoneBook {
         }
     }
 
-    private boolean isContactValid(Contact contact) {
-        return !contact.getName().isEmpty() && isValidPhoneNumber(contact.getPhoneNumber())
-            && !contactMap.containsKey(contact.getName());
-    }
+	public TreeMap<String, Contact> getContactMap() {
+		return contactMap;
+	}
 
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        return phoneNumber.matches("[6-9]\\d{9}");
-    }
+	public void setContactMap(TreeMap<String, Contact> contactMap) {
+		this.contactMap = contactMap;
+	}
+    
+    
+    
 }

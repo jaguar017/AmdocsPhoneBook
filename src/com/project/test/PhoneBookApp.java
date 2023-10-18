@@ -1,10 +1,17 @@
-package com.amdocs.project;
+package com.project.test;
 
 import java.util.Scanner;
 
+import com.project.model.Contact;
+import com.project.services.ValidatePhoneBook;
+import com.project.services.PhoneBook;
+
 public class PhoneBookApp {
-    public static void main(String[] args) {
-        AbstractPhoneBook phoneBook = new PhoneBook();
+
+	public static void main(String[] args) {
+    	
+    	ValidatePhoneBook vb = new ValidatePhoneBook();
+        PhoneBook phoneBook = new PhoneBook();
         Scanner sc = new Scanner(System.in);
         boolean running = true;
 
@@ -31,7 +38,7 @@ public class PhoneBookApp {
                     String name = sc.nextLine();
                     System.out.print("Enter phone number: ");
                     String phoneNumber = sc.nextLine();
-                    if (isValidContactData(name, phoneNumber, phoneBook)) {
+                    if (vb.isValidContactData(name, phoneNumber)) {
                         phoneBook.addContact(new Contact(name, phoneNumber));
                     }
                     break;
@@ -63,26 +70,6 @@ public class PhoneBookApp {
         }
     }
 
-    private static boolean isValidContactData(String name, String phoneNumber, AbstractPhoneBook phoneBook) {
-        if (name.isEmpty()) {
-            System.out.println("Name cannot be empty.");
-            return false;
-        }
-
-        if (!isValidPhoneNumber(phoneNumber)) {
-            System.out.println("Invalid phone number format. It should be 10 digits starting with 6, 7, 8, or 9.");
-            return false;
-        }
-
-        if (phoneBook.searchContact(name) != null) {
-            System.out.println("Contact with the same name already exists.");
-            return false;
-        }
-
-        return true;
-    }
-
-    private static boolean isValidPhoneNumber(String phoneNumber) {
-        return phoneNumber.matches("[6-9]\\d{9}");
-    }
+   
 }
+

@@ -1,4 +1,6 @@
-package com.amdocs.project;
+package com.project.services;
+
+import com.project.model.Contact;
 
 public abstract class AbstractPhoneBook {
     public abstract void addContact(Contact contact);

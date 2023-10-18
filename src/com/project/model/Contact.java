@@ -1,4 +1,4 @@
-package com.amdocs.project;
+package com.project.model;
 
 public class Contact {
     private String name;
